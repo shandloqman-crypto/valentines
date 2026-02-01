@@ -1,0 +1,987 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Valentine's Day for Shanell</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial Rounded MT Bold', 'Arial', sans-serif;
+        }
+        
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            overflow-x: hidden;
+            overflow-y: auto;
+            transition: background-color 3s ease;
+            padding: 15px;
+            position: relative;
+        }
+        
+        .container {
+            text-align: center;
+            background-color: rgba(255, 255, 255, 0.95);
+            padding: 30px 20px;
+            border-radius: 25px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+            max-width: 600px;
+            width: 100%;
+            z-index: 10;
+            position: relative;
+            transition: transform 0.3s;
+            margin: 20px 0;
+        }
+        
+        /* Cute animals container */
+        .animals-container {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        
+        .animal {
+            font-size: clamp(2.5rem, 6vw, 3.5rem);
+            animation: float 3s ease-in-out infinite;
+        }
+        
+        .teddy-bear {
+            color: #8B4513;
+            animation-delay: 0s;
+        }
+        
+        .cat {
+            color: #FF69B4;
+            animation-delay: 1s;
+        }
+        
+        .teddy-bear2 {
+            color: #D2691E;
+            animation-delay: 2s;
+        }
+        
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+            100% { transform: translateY(0px); }
+        }
+        
+        h1 {
+            color: #d32f8d;
+            font-size: clamp(2rem, 5vw, 2.8rem);
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+            line-height: 1.2;
+        }
+        
+        .heart-icon {
+            color: #ff4081;
+            font-size: clamp(2rem, 5vw, 2.5rem);
+            margin-bottom: 20px;
+            animation: heartbeat 1.5s infinite;
+        }
+        
+        @keyframes heartbeat {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+        
+        .question {
+            font-size: clamp(1.4rem, 4vw, 1.8rem);
+            color: #333;
+            margin-bottom: 35px;
+            font-weight: bold;
+            line-height: 1.3;
+            padding: 0 10px;
+        }
+        
+        .buttons-container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-bottom: 30px;
+        }
+        
+        .btn {
+            padding: 16px 30px;
+            font-size: clamp(1.4rem, 4vw, 1.8rem);
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: bold;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+            min-width: 140px;
+            flex: 1;
+            max-width: 200px;
+        }
+        
+        .btn-yes {
+            background-color: #4CAF50;
+            color: white;
+        }
+        
+        .btn-yes:hover, .btn-yes:active {
+            background-color: #45a049;
+            transform: scale(1.05);
+        }
+        
+        .btn-no {
+            background-color: #f44336;
+            color: white;
+        }
+        
+        .btn-no:hover, .btn-no:active {
+            background-color: #d32f2f;
+        }
+        
+        /* Realistic letter design */
+        .letter-container {
+            display: none;
+            margin-top: 20px;
+            padding: 20px;
+            background-color: #fffef7;
+            border-radius: 3px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15), 
+                        0 0 0 1px rgba(0, 0, 0, 0.05),
+                        0 2px 4px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+            transform: scale(0.85);
+            transform-origin: center;
+        }
+        
+        /* Paper texture effect */
+        .letter-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: 
+                linear-gradient(90deg, rgba(0,0,0,.03) 1px, transparent 1px),
+                linear-gradient(rgba(0,0,0,.03) 1px, transparent 1px);
+            background-size: 20px 20px;
+            pointer-events: none;
+            opacity: 0.5;
+        }
+        
+        /* Fold lines for realism */
+        .letter-container::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(0,0,0,0.1), transparent);
+            box-shadow: 0 1px 0 rgba(255,255,255,0.5);
+        }
+        
+        .letter-content {
+            text-align: left;
+            line-height: 1.8;
+            font-size: clamp(0.95rem, 2.5vw, 1.1rem);
+            color: #000000;
+            padding: 15px;
+            position: relative;
+            z-index: 1;
+            font-family: 'Georgia', 'Times New Roman', serif;
+        }
+        
+        .letter-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            flex-wrap: wrap;
+            border-bottom: 1px solid #e0d0c0;
+            padding-bottom: 15px;
+            margin-bottom: 20px;
+            position: relative;
+        }
+        
+        .letter-title {
+            font-size: clamp(1.3rem, 3.5vw, 1.7rem);
+            color: #000000;
+            font-family: 'Georgia', 'Times New Roman', serif;
+            font-weight: bold;
+            letter-spacing: 0.5px;
+        }
+        
+        .letter-date {
+            font-size: 0.9rem;
+            color: #666;
+            font-style: italic;
+            margin-top: 5px;
+        }
+        
+        .seal {
+            width: 40px;
+            height: 40px;
+            background-color: #ff4081;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-size: 1rem;
+            flex-shrink: 0;
+            margin-top: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+        
+        .signature {
+            text-align: right;
+            font-family: 'Brush Script MT', 'Lucida Handwriting', cursive;
+            font-size: clamp(1.4rem, 3.5vw, 1.8rem);
+            color: #000000;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px dashed #ccc;
+        }
+        
+        /* Realistic envelope */
+        .envelope {
+            display: none;
+            width: min(250px, 70vw);
+            height: 160px;
+            background-color: #f8f0e8;
+            margin: 20px auto;
+            border-radius: 2px;
+            position: relative;
+            cursor: pointer;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15), 
+                        0 0 0 1px rgba(0,0,0,0.05);
+            transition: transform 0.5s;
+            transform: scale(0.9);
+        }
+        
+        .envelope:hover, .envelope:active {
+            transform: scale(0.95);
+        }
+        
+        .envelope:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            border-top: 80px solid #f0e6dc;
+            border-left: min(125px, 35vw) solid transparent;
+            border-right: min(125px, 35vw) solid transparent;
+            z-index: 2;
+        }
+        
+        .envelope:after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            border-bottom: 80px solid #e8dcd0;
+            border-left: min(125px, 35vw) solid transparent;
+            border-right: min(125px, 35vw) solid transparent;
+            z-index: 1;
+        }
+        
+        .envelope-flap {
+            position: absolute;
+            top: -79px;
+            left: 0;
+            width: 0;
+            height: 0;
+            border-left: min(125px, 35vw) solid transparent;
+            border-right: min(125px, 35vw) solid transparent;
+            border-top: 80px solid #e8d4c4;
+            z-index: 3;
+            transition: transform 0.8s ease;
+        }
+        
+        .envelope.open .envelope-flap {
+            transform: rotateX(180deg);
+            transform-origin: top;
+        }
+        
+        .letter-paper {
+            position: absolute;
+            top: 15px;
+            left: 10px;
+            right: 10px;
+            bottom: 10px;
+            background-color: #fffef7;
+            border-radius: 1px;
+            z-index: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #d32f8d;
+            font-size: 2.2rem;
+            font-weight: bold;
+            padding: 15px;
+            text-align: center;
+            box-shadow: inset 0 0 0 1px rgba(0,0,0,0.05);
+        }
+        
+        /* Heart Animation Container */
+        .heart-animation-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 20;
+            display: none;
+        }
+        
+        .floating-heart {
+            position: absolute;
+            font-size: 2rem;
+            color: #ff4081;
+            animation: floatUp 4s linear forwards;
+            opacity: 0;
+        }
+        
+        @keyframes floatUp {
+            0% {
+                transform: translateY(100vh) scale(0.5);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100px) scale(1.2);
+                opacity: 0;
+            }
+        }
+        
+        /* S+S Logo Styles */
+        .ss-logo-container {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 25;
+            display: none;
+            pointer-events: none;
+        }
+        
+        .ss-logo {
+            font-family: 'Brush Script MT', cursive;
+            font-size: clamp(4rem, 10vw, 6rem);
+            color: #ff4081;
+            text-shadow: 3px 3px 0 #ffccd5, 6px 6px 0 rgba(0, 0, 0, 0.1);
+            animation: logoReveal 2s ease-out forwards;
+            opacity: 0;
+        }
+        
+        @keyframes logoReveal {
+            0% {
+                transform: scale(0.1) rotate(-180deg);
+                opacity: 0;
+            }
+            60% {
+                transform: scale(1.2) rotate(10deg);
+                opacity: 1;
+            }
+            80% {
+                transform: scale(1) rotate(-5deg);
+            }
+            100% {
+                transform: scale(1) rotate(0deg);
+                opacity: 1;
+            }
+        }
+        
+        .heart-burst {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+        }
+        
+        .burst-heart {
+            position: absolute;
+            font-size: 1.5rem;
+            color: #ff4081;
+            animation: burstOut 1.5s ease-out forwards;
+        }
+        
+        @keyframes burstOut {
+            0% {
+                transform: translate(0, 0) scale(0);
+                opacity: 0;
+            }
+            50% {
+                opacity: 1;
+            }
+            100% {
+                transform: translate(var(--tx), var(--ty)) scale(1);
+                opacity: 0;
+            }
+        }
+        
+        .confetti {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 100;
+        }
+        
+        .message {
+            font-size: clamp(1.8rem, 5vw, 2.5rem);
+            color: #d32f8d;
+            margin: 25px 0;
+            padding: 15px;
+            display: none;
+            animation: fadeIn 1s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* Instruction text */
+        .mobile-note {
+            font-size: 1.1rem;
+            color: #000000;
+            margin-top: 20px;
+            padding: 10px 15px;
+            display: block;
+            font-weight: bold;
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 10px;
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+            border: 2px solid #ff4081;
+            text-align: center;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+            100% { transform: scale(1); }
+        }
+        
+        /* Made by shand text in bottom left */
+        .creator {
+            position: fixed;
+            bottom: 15px;
+            left: 15px;
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.9rem;
+            z-index: 5;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+            padding: 5px 10px;
+            background-color: rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+            backdrop-filter: blur(2px);
+        }
+        
+        /* Mobile-specific adjustments */
+        @media (max-width: 768px) {
+            .container {
+                padding: 25px 15px;
+                border-radius: 20px;
+            }
+            
+            .animals-container {
+                margin-bottom: 15px;
+                gap: 10px;
+            }
+            
+            .animal {
+                font-size: clamp(2rem, 8vw, 3rem);
+            }
+            
+            .buttons-container {
+                gap: 15px;
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .btn {
+                width: 100%;
+                max-width: 250px;
+                padding: 18px 30px;
+            }
+            
+            .letter-container {
+                padding: 15px;
+                transform: scale(0.8);
+                margin-top: 15px;
+            }
+            
+            .letter-content {
+                padding: 12px;
+            }
+            
+            .ss-logo {
+                font-size: clamp(3rem, 12vw, 5rem);
+            }
+            
+            .mobile-note {
+                font-size: 1rem;
+                padding: 10px 12px;
+                margin-top: 15px;
+            }
+            
+            .creator {
+                font-size: 0.8rem;
+                bottom: 10px;
+                left: 10px;
+                padding: 4px 8px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            body {
+                padding: 10px;
+            }
+            
+            .container {
+                padding: 20px 12px;
+            }
+            
+            .animals-container {
+                gap: 5px;
+            }
+            
+            .animal {
+                font-size: clamp(1.8rem, 10vw, 2.5rem);
+            }
+            
+            .question {
+                margin-bottom: 30px;
+            }
+            
+            .envelope {
+                height: 140px;
+                width: min(220px, 65vw);
+            }
+            
+            .envelope:before, .envelope:after {
+                border-top-width: 70px;
+                border-bottom-width: 70px;
+            }
+            
+            .envelope-flap {
+                border-top-width: 70px;
+                top: -69px;
+            }
+            
+            .letter-paper {
+                font-size: 1.8rem;
+            }
+            
+            .floating-heart {
+                font-size: 1.5rem;
+            }
+            
+            .ss-logo {
+                font-size: clamp(2.5rem, 15vw, 4rem);
+            }
+            
+            .mobile-note {
+                font-size: 0.95rem;
+                padding: 8px 10px;
+            }
+        }
+        
+        /* Touch-friendly button styles */
+        .btn {
+            -webkit-tap-highlight-color: transparent;
+            user-select: none;
+        }
+        
+        /* Prevent text selection on buttons */
+        .btn, .envelope {
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+    </style>
+</head>
+<body>
+    <!-- Cute teddy bears and cats above the text -->
+    <div class="animals-container">
+        <div class="animal teddy-bear">
+            <i class="fas fa-stuffed-toy"></i>
+        </div>
+        <div class="animal cat">
+            <i class="fas fa-cat"></i>
+        </div>
+        <div class="animal teddy-bear2">
+            <i class="fas fa-bear"></i>
+        </div>
+    </div>
+    
+    <!-- Heart Animation Container -->
+    <div class="heart-animation-container" id="heartAnimation"></div>
+    
+    <!-- S+S Logo Container -->
+    <div class="ss-logo-container" id="ssLogoContainer">
+        <div class="ss-logo">S+S</div>
+        <div class="heart-burst" id="heartBurst"></div>
+    </div>
+    
+    <div class="container">
+        <div class="heart-icon">
+            <i class="fas fa-heart"></i>
+        </div>
+        
+        <h1>Happy Valentine's Day!</h1>
+        
+        <p class="question">Will you be my Valentine, Shanell?</p>
+        
+        <div class="buttons-container">
+            <button class="btn btn-yes" id="yesBtn">YES</button>
+            <button class="btn btn-no" id="noBtn">NO</button>
+        </div>
+        
+        <p class="mobile-note">you can't press no, try to</p>
+        
+        <div class="message" id="message">YAYY I love you Shanell!</div>
+        
+        <!-- Realistic envelope -->
+        <div class="envelope" id="envelope">
+            <div class="envelope-flap"></div>
+            <div class="letter-paper">❤️</div>
+        </div>
+        
+        <!-- Realistic letter with black text -->
+        <div class="letter-container" id="letterContainer">
+            <div class="letter-header">
+                <div>
+                    <div class="letter-title">My Dearest Shanell,</div>
+                    <div class="letter-date">February 14th</div>
+                </div>
+                <div class="seal"><i class="fas fa-heart"></i></div>
+            </div>
+            <div class="letter-content">
+                <p>I love you so so so so much Shanell, more than anything in this world! You are the most amazing person I've ever met, and every day with you feels like a beautiful dream.</p>
+                <br>
+                <p>Your smile lights up my world, your laughter is my favorite melody, and your love is the greatest gift I could ever receive. I'm so incredibly grateful to have you in my life.</p>
+                <br>
+                <p>You make every moment special, and I cherish every memory we've created together. I can't wait to make many more beautiful memories with you, my love.</p>
+                <br>
+                <p>Forever yours,</p>
+                <div class="signature">With all my love ❤️</div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Confetti container -->
+    <div class="confetti" id="confettiContainer"></div>
+    
+    <!-- "Made by shand" text in bottom left -->
+    <div class="creator">Made by shand</div>
+
+    <script>
+        // Background colors for cycling
+        const bgColors = ['#ff6b6b', '#ff9ff3', '#5f27cd', '#ff4d8d', '#ffb8e2'];
+        let colorIndex = 0;
+        
+        // DOM Elements
+        const body = document.body;
+        const yesBtn = document.getElementById('yesBtn');
+        const noBtn = document.getElementById('noBtn');
+        const message = document.getElementById('message');
+        const envelope = document.getElementById('envelope');
+        const letterContainer = document.getElementById('letterContainer');
+        const confettiContainer = document.getElementById('confettiContainer');
+        const heartAnimation = document.getElementById('heartAnimation');
+        const ssLogoContainer = document.getElementById('ssLogoContainer');
+        const heartBurst = document.getElementById('heartBurst');
+        
+        // Track how many times NO button has been clicked
+        let noClicks = 0;
+        let yesSize = 1;
+        
+        // Initialize background color
+        body.style.backgroundColor = bgColors[0];
+        
+        // Cycle background colors every 3 seconds
+        const bgInterval = setInterval(() => {
+            colorIndex = (colorIndex + 1) % bgColors.length;
+            body.style.backgroundColor = bgColors[colorIndex];
+        }, 3000);
+        
+        // NO button functionality
+        noBtn.addEventListener('click', function() {
+            noClicks++;
+            
+            // Make YES button bigger
+            yesSize += 0.3;
+            yesBtn.style.transform = `scale(${yesSize})`;
+            
+            // Move NO button randomly
+            const maxX = window.innerWidth - noBtn.offsetWidth - 100;
+            const maxY = window.innerHeight - noBtn.offsetHeight - 100;
+            const randomX = Math.max(20, Math.floor(Math.random() * maxX));
+            const randomY = Math.max(20, Math.floor(Math.random() * maxY));
+            
+            // On mobile, we can't move it too far
+            if (window.innerWidth <= 768) {
+                noBtn.style.position = 'relative';
+                noBtn.style.left = `${Math.random() * 40 - 20}px`;
+                noBtn.style.top = `${Math.random() * 40 - 20}px`;
+            } else {
+                noBtn.style.position = 'fixed';
+                noBtn.style.left = `${randomX}px`;
+                noBtn.style.top = `${randomY}px`;
+            }
+            
+            // Change NO button text after a few clicks
+            if (noClicks === 3) {
+                noBtn.textContent = "Are you sure?";
+            } else if (noClicks === 6) {
+                noBtn.textContent = "Really sure?";
+            } else if (noClicks === 9) {
+                noBtn.textContent = "Think again!";
+            } else if (noClicks === 12) {
+                noBtn.textContent = "Last chance!";
+            } else if (noClicks >= 15) {
+                noBtn.textContent = "OK fine!";
+                noBtn.style.backgroundColor = "#4CAF50";
+                noBtn.style.color = "white";
+                
+                // Auto-click YES after too many NO clicks
+                setTimeout(() => {
+                    handleYesClick();
+                }, 1000);
+            }
+        });
+        
+        // YES button functionality
+        function handleYesClick() {
+            // Show message
+            message.style.display = 'block';
+            message.textContent = "YAYY I love you Shanell!";
+            
+            // Hide buttons
+            yesBtn.style.display = 'none';
+            noBtn.style.display = 'none';
+            
+            // Hide the instruction text
+            document.querySelector('.mobile-note').style.display = 'none';
+            
+            // Start heart animation
+            startHeartAnimation();
+            
+            // Show S+S logo
+            showSSLogo();
+            
+            // Launch confetti
+            launchConfetti();
+            
+            // Show envelope after a delay
+            setTimeout(() => {
+                envelope.style.display = 'block';
+            }, 3000);
+        }
+        
+        yesBtn.addEventListener('click', handleYesClick);
+        
+        // Heart animation function
+        function startHeartAnimation() {
+            heartAnimation.style.display = 'block';
+            
+            // Create floating hearts
+            const heartIcons = ['❤️', '💖', '💕', '💗', '💓', '💘', '💝', '🧡', '💛', '💚', '💙', '💜'];
+            
+            // Create hearts for 5 seconds
+            const heartInterval = setInterval(() => {
+                for (let i = 0; i < 8; i++) {
+                    const heart = document.createElement('div');
+                    heart.className = 'floating-heart';
+                    heart.innerHTML = heartIcons[Math.floor(Math.random() * heartIcons.length)];
+                    
+                    // Random position
+                    const left = Math.random() * 100;
+                    heart.style.left = `${left}%`;
+                    
+                    // Random animation delay
+                    const delay = Math.random() * 2;
+                    heart.style.animationDelay = `${delay}s`;
+                    
+                    // Random size
+                    const size = 0.8 + Math.random() * 0.7;
+                    heart.style.fontSize = `${size}rem`;
+                    
+                    heartAnimation.appendChild(heart);
+                    
+                    // Remove heart after animation completes
+                    setTimeout(() => {
+                        if (heart.parentNode) {
+                            heart.parentNode.removeChild(heart);
+                        }
+                    }, 4000);
+                }
+            }, 300);
+            
+            // Stop creating hearts after 5 seconds
+            setTimeout(() => {
+                clearInterval(heartInterval);
+            }, 5000);
+        }
+        
+        // Show S+S logo with heart burst
+        function showSSLogo() {
+            ssLogoContainer.style.display = 'block';
+            
+            // Create heart burst effect
+            const heartIcons = ['❤️', '💖', '💕', '💗'];
+            for (let i = 0; i < 24; i++) {
+                const heart = document.createElement('div');
+                heart.className = 'burst-heart';
+                heart.innerHTML = heartIcons[Math.floor(Math.random() * heartIcons.length)];
+                
+                // Calculate burst direction
+                const angle = (i / 24) * Math.PI * 2;
+                const distance = 100 + Math.random() * 100;
+                const tx = Math.cos(angle) * distance;
+                const ty = Math.sin(angle) * distance;
+                
+                heart.style.setProperty('--tx', `${tx}px`);
+                heart.style.setProperty('--ty', `${ty}px`);
+                
+                // Random delay
+                heart.style.animationDelay = `${Math.random() * 0.5}s`;
+                
+                heartBurst.appendChild(heart);
+                
+                // Remove heart after animation
+                setTimeout(() => {
+                    if (heart.parentNode) {
+                        heart.parentNode.removeChild(heart);
+                    }
+                }, 1500);
+            }
+            
+            // Hide logo after some time
+            setTimeout(() => {
+                ssLogoContainer.style.opacity = '0';
+                ssLogoContainer.style.transition = 'opacity 1s ease';
+                
+                setTimeout(() => {
+                    ssLogoContainer.style.display = 'none';
+                }, 1000);
+            }, 3000);
+        }
+        
+        // Envelope click functionality
+        envelope.addEventListener('click', function() {
+            // Open envelope animation
+            envelope.classList.add('open');
+            
+            // Show letter after envelope opens
+            setTimeout(() => {
+                letterContainer.style.display = 'block';
+                envelope.style.display = 'none';
+            }, 1000);
+            
+            // More confetti when opening the letter
+            setTimeout(() => {
+                launchConfetti();
+            }, 1200);
+        });
+        
+        // Confetti function
+        function launchConfetti() {
+            // Clear any existing confetti
+            confettiContainer.innerHTML = '';
+            
+            // Launch confetti from multiple positions
+            confetti({
+                particleCount: 150,
+                spread: 100,
+                origin: { y: 0.6, x: 0.3 }
+            });
+            
+            setTimeout(() => {
+                confetti({
+                    particleCount: 100,
+                    angle: 60,
+                    spread: 80,
+                    origin: { x: 0 }
+                });
+            }, 250);
+            
+            setTimeout(() => {
+                confetti({
+                    particleCount: 100,
+                    angle: 120,
+                    spread: 80,
+                    origin: { x: 1 }
+                });
+            }, 500);
+            
+            // Hearts confetti
+            setTimeout(() => {
+                confetti({
+                    particleCount: 50,
+                    spread: 70,
+                    origin: { y: 0.6 },
+                    shapes: ['circle', 'circle', 'square'],
+                    scalar: 1.2
+                });
+            }, 750);
+            
+            // More confetti bursts
+            setTimeout(() => {
+                confetti({
+                    particleCount: 80,
+                    angle: 90,
+                    spread: 100,
+                    origin: { y: 0.5 }
+                });
+            }, 1500);
+        }
+        
+        // Make sure NO button doesn't go off screen on resize
+        window.addEventListener('resize', function() {
+            if (noBtn.style.position === 'fixed') {
+                const rect = noBtn.getBoundingClientRect();
+                
+                if (rect.right > window.innerWidth - 10) {
+                    noBtn.style.left = `${window.innerWidth - noBtn.offsetWidth - 20}px`;
+                }
+                
+                if (rect.bottom > window.innerHeight - 10) {
+                    noBtn.style.top = `${window.innerHeight - noBtn.offsetHeight - 20}px`;
+                }
+            }
+        });
+        
+        // Mobile touch improvements
+        document.addEventListener('touchstart', function() {}, {passive: true});
+    </script>
+</body>
+</html>
